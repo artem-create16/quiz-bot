@@ -1,10 +1,11 @@
-FROM python:3.9-slim
-ENV BOT_NAME=$BOT_NAME
+FROM python:3.8
 
-WORKDIR /usr/src/app/"${BOT_NAME:-tg_bot}"
+WORKDIR /usr/src/app
 
-COPY requirements.txt /usr/src/app/"${BOT_NAME:-tg_bot}"
-RUN pip install -r /usr/src/app/"${BOT_NAME:-tg_bot}"/requirements.txt
-COPY . /usr/src/app/"${BOT_NAME:-tg_bot}"
+COPY requirements.txt ./
 
-CMD python3 -m bot
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["python", "bot.py"]
