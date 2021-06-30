@@ -6,8 +6,9 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage
 
 from tgbot.config import load_config
-from tgbot.handlers.echo import register_echo
-from tgbot.handlers.user import register_user
+from tgbot.handlers.start import get_start
+from tgbot.handlers.answer_kb import answer_kb
+from tgbot.handlers.quiz import get_quiz
 from tgbot.middlewares.db import DbMiddleware
 
 logger = logging.getLogger(__name__)
@@ -18,9 +19,9 @@ def register_all_middlewares(dp):
 
 
 def register_all_handlers(dp):
-    register_user(dp)
-
-    register_echo(dp)
+    get_start(dp)
+    get_quiz(dp)
+    answer_kb(dp)
 
 
 async def main():

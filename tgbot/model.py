@@ -1,12 +1,9 @@
-import asyncio
-from contextlib import suppress
-from sqlalchemy import Column, BigInteger, insert, String, ForeignKey, update, func
+from sqlalchemy import Column, BigInteger, insert, String, update, Integer, ForeignKey
 from sqlalchemy import select
 from sqlalchemy.orm import sessionmaker
 
-from tgbot.config import load_config
-from tgbot.services.database import create_db_session
 from tgbot.services.db_base import Base
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -54,3 +51,17 @@ class User(Base):
     def __repr__(self):
         return f'User (ID: {self.telegram_id} - {self.first_name} {self.last_name})'
 
+
+class Quiz(Base):
+    __tablename__ = "quizzes"
+    id = Column(Integer, primary_key=True)
+    theme = Column(String, nullable=False)
+    questions = relationship('Question', back_populates='quizzes')
+
+
+class Question(Base):
+    __tablename__ = "questions"
+    id = Column(Integer, primary_key=True)
+    quiz_id = Column(Integer, ForeignKey('quizzes.id'))
+    quiz = relationship("Quiz", back_populates="questions")
+    answer = Column(String, nullable=False)
