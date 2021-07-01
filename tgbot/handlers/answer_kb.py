@@ -1,9 +1,9 @@
 from aiogram import Dispatcher, types
 from aiogram.types import Message, MessageEntity
 from aiogram.types import ReplyKeyboardRemove
-from tgbot.models.users import User
+from tgbot.models.models import User
 from tgbot.config import load_config
-from tgbot.models.users import User
+from tgbot.models.models import User
 from tgbot.services.database import create_db_session
 
 
